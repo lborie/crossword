@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mots Croisés</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header>
+        <h1>Mots Croisés</h1>
+        <p class="subtitle">Jouez ensemble, en temps réel</p>
+    </header>
+
+    <main>
+        <section class="section-upload">
+            <h2>Nouvelle grille</h2>
+            <button id="btn-upload" class="btn btn-primary">
+                Ajouter une grille
+            </button>
+        </section>
+
+        <section class="section-grids">
+            <h2>Grilles disponibles</h2>
+            <div id="grid-list" class="grid-list">
+                <p class="empty-state">Aucune grille pour le moment.</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="/app.js"></script>
+</body>
+</html>
