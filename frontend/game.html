@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partie — Mots Croisés</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <header>
+        <h1><a href="/" class="header-link">Mots Croisés</a></h1>
+    </header>
+
+    <main>
+        <!-- Join dialog -->
+        <section id="join-section" class="section-join">
+            <h2>Rejoindre la partie</h2>
+            <form id="join-form" class="join-form">
+                <input type="text" id="pseudo-input" class="input" placeholder="Votre pseudo" maxlength="20" required autocomplete="off">
+                <button type="submit" class="btn btn-primary">Rejoindre</button>
+            </form>
+        </section>
+
+        <!-- Game area (hidden until joined) -->
+        <div id="game-area" hidden>
+            <!-- Players -->
+            <section class="section-players">
+                <h2>Joueurs</h2>
+                <div id="player-list" class="player-list"></div>
+            </section>
+
+            <!-- Current definition -->
+            <section id="current-def" class="section-current-def" hidden>
+                <p id="def-text" class="def-display"></p>
+            </section>
+
+            <!-- Grid -->
+            <section class="section-game-grid">
+                <div class="grid-container">
+                    <table id="game-grid" class="crossword-grid game-mode"></table>
+                </div>
+            </section>
+        </div>
+
+        <!-- Connection status -->
+        <div id="connection-status" class="connection-status" hidden>
+            <div class="spinner"></div>
+            <span>Reconnexion...</span>
+        </div>
+    </main>
+
+    <script src="/game.js"></script>
+</body>
+</html>

@@ -61,3 +61,4 @@ build/
 node_modules/
 
 crossword
+creds/

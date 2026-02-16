@@ -15,15 +15,29 @@
     <main>
         <section class="section-upload">
             <h2>Nouvelle grille</h2>
-            <button id="btn-upload" class="btn btn-primary">
-                Ajouter une grille
-            </button>
+            <form id="upload-form">
+                <input type="file" id="file-input" accept="image/jpeg,image/png" hidden>
+                <button type="button" id="btn-upload" class="btn btn-primary">
+                    Ajouter une grille
+                </button>
+            </form>
+            <div id="upload-status" class="upload-status" hidden>
+                <div class="spinner"></div>
+                <p>Analyse de la grille en cours...</p>
+            </div>
         </section>
 
         <section class="section-grids">
             <h2>Grilles disponibles</h2>
             <div id="grid-list" class="grid-list">
                 <p class="empty-state">Aucune grille pour le moment.</p>
+            </div>
+        </section>
+
+        <section id="grid-preview" class="section-preview" hidden>
+            <h2>Aperçu de la grille</h2>
+            <div class="grid-container">
+                <table id="grid-table" class="crossword-grid"></table>
             </div>
         </section>
     </main>

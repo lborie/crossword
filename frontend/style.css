@@ -17,6 +17,8 @@
     --color-primary-hover: #1d4ed8;
     --color-border: #d1d5db;
     --color-black-cell: #1a1a1a;
+    --color-def-bg: #2c3e50;
+    --color-def-text: #ffffff;
     --radius: 8px;
     --space-xs: 0.25rem;
     --space-sm: 0.5rem;
@@ -24,6 +26,7 @@
     --space-lg: 1.5rem;
     --space-xl: 2rem;
     --font: system-ui, -apple-system, sans-serif;
+    --cell-size: 2.5rem;
 }
 
 /* Base */
@@ -59,7 +62,7 @@ header h1 {
 
 /* Main */
 main {
-    max-width: 40rem;
+    max-width: 64rem;
     margin: 0 auto;
     padding: 0 var(--space-md) var(--space-xl);
 }
@@ -96,14 +99,50 @@ section h2 {
     color: #ffffff;
 }
 
+.btn-secondary {
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+}
+
 @media (hover: hover) {
     .btn-primary:hover {
         background: var(--color-primary-hover);
+    }
+    .btn-secondary:hover {
+        background: var(--color-bg);
     }
 }
 
 .btn-primary:active {
     background: var(--color-primary-hover);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Upload status */
+.upload-status {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+    color: var(--color-text-muted);
+}
+
+.spinner {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--color-border);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
 }
 
 /* Grid list */
@@ -112,9 +151,212 @@ section h2 {
     gap: var(--space-md);
 }
 
+.grid-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+}
+
+.grid-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.grid-card-title {
+    font-weight: 600;
+}
+
+.grid-card-meta {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+}
+
 .empty-state {
     color: var(--color-text-muted);
     font-style: italic;
+}
+
+/* Crossword grid */
+.grid-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.crossword-grid {
+    border-collapse: collapse;
+    border: 2px solid var(--color-black-cell);
+}
+
+.crossword-grid td {
+    width: var(--cell-size);
+    height: var(--cell-size);
+    min-width: var(--cell-size);
+    min-height: var(--cell-size);
+    border: 1px solid var(--color-border);
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.125rem;
+    font-weight: 600;
+    position: relative;
+}
+
+.crossword-grid td.cell-def {
+    background: var(--color-def-bg);
+    color: var(--color-def-text);
+    font-size: 0.5rem;
+    font-weight: 400;
+    line-height: 1.2;
+    padding: 1px;
+    overflow: hidden;
+    user-select: none;
+}
+
+.crossword-grid td.cell-def .def-text {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.crossword-grid td.cell-def .def-arrow {
+    font-size: 0.625rem;
+}
+
+.crossword-grid td.cell-letter {
+    background: var(--color-surface);
+}
+
+/* Game mode: interactive cells */
+.game-mode td.cell-letter {
+    cursor: pointer;
+    outline: none;
+}
+
+.game-mode td.cell-letter.selected {
+    background: #bfdbfe;
+    box-shadow: inset 0 0 0 2px var(--color-primary);
+}
+
+.game-mode td.cell-letter.highlighted {
+    background: #e0edff;
+}
+
+.game-mode td.cell-letter.cell-flash {
+    animation: flash 0.6s ease-out;
+}
+
+@keyframes flash {
+    0% { background: #fde68a; }
+    100% { background: var(--color-surface); }
+}
+
+/* Header link */
+.header-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Join form */
+.join-form {
+    display: flex;
+    gap: var(--space-sm);
+    max-width: 24rem;
+}
+
+.input {
+    flex: 1;
+    min-height: 44px;
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    font-family: var(--font);
+    background: var(--color-surface);
+}
+
+.input:focus {
+    outline: 2px solid var(--color-primary);
+    outline-offset: -1px;
+}
+
+/* Player list */
+.player-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+}
+
+.player-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: 999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    background: color-mix(in srgb, var(--player-color, #2563eb) 15%, transparent);
+    color: var(--player-color, #2563eb);
+    border: 1px solid color-mix(in srgb, var(--player-color, #2563eb) 30%, transparent);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.player-badge.player-leaving {
+    animation: fadeOut 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(0.8); }
+}
+
+/* Current definition display */
+.def-display {
+    padding: var(--space-sm) var(--space-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+/* Connection status */
+.connection-status {
+    position: fixed;
+    bottom: var(--space-md);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    z-index: 100;
+}
+
+/* Grid card buttons */
+.grid-card-actions {
+    display: flex;
+    gap: var(--space-sm);
+}
+
+/* Error */
+.error-msg {
+    color: #dc2626;
+    margin-top: var(--space-sm);
 }
 
 /* Reduced motion */
@@ -124,5 +366,15 @@ section h2 {
     *::after {
         transition-duration: 0.01ms !important;
         animation-duration: 0.01ms !important;
+    }
+}
+
+/* Responsive: smaller cells on small screens */
+@media (max-width: 480px) {
+    :root {
+        --cell-size: 2rem;
+    }
+    .crossword-grid td.cell-def {
+        font-size: 0.4rem;
     }
 }
